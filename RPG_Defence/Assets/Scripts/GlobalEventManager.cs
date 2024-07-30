@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GlobalEventManager : MonoBehaviour
+{
+    public delegate ScreenUIController SpawnScreenEvent(ScreenType screenType);
+
+    public static event SpawnScreenEvent OnSpawnScreenEvent;
+
+    public static ScreenUIController TriggerOnSpawnEvent(ScreenType screenType)
+    {
+        return OnSpawnScreenEvent?.Invoke(screenType);
+    }
+
+    public delegate void DestroyScreenController(ScreenType screenType);
+    public static event DestroyScreenController OnDestroyScreenController;
+
+    public static void TriggerDestroyScreenController(ScreenType screenType)
+    {
+        OnDestroyScreenController?.Invoke(screenType);
+    }
+
+    public delegate void PickupItem(Item item);
+    public static event PickupItem OnPickupItem;
+
+    public static void TriggerPickupItem(Item item)
+    {
+        OnPickupItem?.Invoke(item);
+    }
+
+    public delegate void SendMousePosition(Vector2 vector2);
+    public static SendMousePosition OnSendMousePosition;
+
+}
