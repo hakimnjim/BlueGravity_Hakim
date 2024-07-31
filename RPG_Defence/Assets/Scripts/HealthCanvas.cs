@@ -11,7 +11,7 @@ public class HealthCanvas : MonoBehaviour
 
     private void OnEnable()
     {
-        controller.OnTakeDamge += HandleTakeDamage;
+        controller.OnHealthChaned += HandleTakeDamage;
     }
 
     private void HandleTakeDamage(float amount)
@@ -21,6 +21,6 @@ public class HealthCanvas : MonoBehaviour
 
     private void OnDisable()
     {
-        controller.OnTakeDamge -= HandleTakeDamage;
+        controller.OnHealthChaned -= HandleTakeDamage;
     }
 }

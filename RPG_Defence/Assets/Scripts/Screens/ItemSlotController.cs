@@ -12,8 +12,6 @@ public class ItemSlotController : ScreenUIController, ISelectHandler, IDeselectH
 
     private Item item;
     private ItemSlotStruct _itemSlotStruct;
-
-
     public ItemSlotStruct ItemSlotStruct
     {
         get { return _itemSlotStruct; }
@@ -23,6 +21,7 @@ public class ItemSlotController : ScreenUIController, ISelectHandler, IDeselectH
     [SerializeField] private GameObject child;
     [SerializeField] private Image icon;
     [SerializeField] private TMP_Text textCount;
+    [SerializeField] private Button removeButton;
 
     public Item CurrentItem
     {
@@ -34,6 +33,8 @@ public class ItemSlotController : ScreenUIController, ISelectHandler, IDeselectH
     public override void Init(ItemSlotStruct itemSlotStruct)
     {
         base.Init();
+        child.SetActive(false);
+        removeButton.onClick.RemoveAllListeners();
         CurrentItem = itemSlotStruct.item;
         ItemSlotStruct = itemSlotStruct;
     }
@@ -42,6 +43,7 @@ public class ItemSlotController : ScreenUIController, ISelectHandler, IDeselectH
     {
         CurrentItem = itemSlotStruct.item;
         ItemSlotStruct = itemSlotStruct;
+        removeButton.onClick.AddListener(() => ItemSlotStruct.OnRemoveItem?.Invoke(this));
         if (CurrentItem)
         {
             child.SetActive(true);
@@ -55,11 +57,15 @@ public class ItemSlotController : ScreenUIController, ISelectHandler, IDeselectH
 
     }
 
-    public void UpdateCount()
+    public void UpdateCount(int c)
     {
-        _itemSlotStruct.itemCount++;
+        _itemSlotStruct.itemCount += c;
         int count = int.Parse(textCount.text);
         textCount.text = _itemSlotStruct.itemCount.ToString();
+        if (_itemSlotStruct.itemCount <= 0)
+        {
+            ItemSlotStruct.OnRemoveItem?.Invoke(this);
+        }
     }
 
     public void OnDeselect(BaseEventData eventData)
@@ -119,4 +125,5 @@ public struct ItemSlotStruct: IViewElement
     public UnityAction<ItemSlotController> OnDropSlot;
     public UnityAction<ItemSlotController> OnPointerEnterSlot;
     public UnityAction<ItemSlotController> OnPointerExitSlot;
+    public UnityAction<ItemSlotController> OnRemoveItem;
 }

@@ -10,6 +10,7 @@ public class InventoryScreenController : ScreenUIController
     private List<ItemSlotController> slotControllers = new List<ItemSlotController>();
     private int slotCount;
     private ItemSlotController itemHover;
+    private Vector2 mousePos;
 
     public override void Init(InventoryStruct inventoryStruct)
     {
@@ -17,6 +18,12 @@ public class InventoryScreenController : ScreenUIController
         slotCount = inventoryStruct.slotCount;
         SpawnItems();
         GlobalEventManager.OnPickupItem += HandleOnPickupItem;
+        GlobalEventManager.OnSendMousePosition += HandleGetMousePos;
+    }
+
+    private void HandleGetMousePos(Vector2 vector2)
+    {
+        mousePos = vector2;
     }
 
     private void SpawnItems()
@@ -39,7 +46,7 @@ public class InventoryScreenController : ScreenUIController
         int index = slotControllers.FindIndex(x => x.CurrentItem == item);
         if (index != -1)
         {
-            slotControllers[index].UpdateCount();
+            slotControllers[index].UpdateCount(1);
         }
         else
         {
@@ -57,10 +64,21 @@ public class InventoryScreenController : ScreenUIController
                     OnEndDragSlot = OnEndDragSlot,
                     OnDropSlot = OnDropSlot,
                     OnPointerEnterSlot = OnPointerEnter,
-                    OnPointerExitSlot = OnPointerExit
+                    OnPointerExitSlot = OnPointerExit,
+                    OnRemoveItem = OnRemoveItem
                 });
             }
         }
+    }
+
+    private void OnRemoveItem(ItemSlotController ItemSlot)
+    {
+        ItemSlot.Init(new ItemSlotStruct
+        {
+            item = null,
+            OnPointerEnterSlot = OnPointerEnter,
+            OnPointerExitSlot = OnPointerExit
+        });
     }
 
     private void OnSelectSlot(ItemSlotController itemSeleted)
@@ -90,6 +108,29 @@ public class InventoryScreenController : ScreenUIController
             currentItem.UpdateSlotItem(itemHoverStruct);
             itemHover.UpdateSlotItem(currentItemSlotStruct);
         }
+        else
+        {
+            Ray ray = Camera.main.ScreenPointToRay(mousePos);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                CombatController combatController = hit.collider.GetComponent<CombatController>();
+                if (combatController != null)
+                {
+                    Debug.Log("we found this combat");
+                    bool isUsed = currentItem.ItemSlotStruct.item.UseItem(combatController);
+                    if (isUsed)
+                    {
+                        currentItem.UpdateCount(-1);
+                    }
+                    // Perform actions with the CombatController here
+                }
+                else
+                {
+                    Debug.Log("No CombatController found at hit location.");
+                }
+            }
+        }
         GlobalEventManager.TriggerDestroyScreenController(ScreenType.InfoPanel);
     }
 
@@ -116,6 +157,7 @@ public class InventoryScreenController : ScreenUIController
     private void OnDisable()
     {
         GlobalEventManager.OnPickupItem -= HandleOnPickupItem;
+        GlobalEventManager.OnSendMousePosition -= HandleGetMousePos;
     }
 }
 

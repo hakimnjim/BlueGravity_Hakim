@@ -5,7 +5,8 @@ using UnityEngine;
 public class GameState : State
 {
     [SerializeField] private Transform waveStartPos;
-    [SerializeField] private List<Transform> collectablePos;
+    [SerializeField] private List<CollectableStructPos> collectablePos;
+    [SerializeField] private List<GameObject> collectables;
     [SerializeField] private GameObject NPC;
     private int minWave;
     private int maxWave;
@@ -15,7 +16,8 @@ public class GameState : State
         base.Enter(host);
         minWave = 1;
         maxWave = 3;
-        InvokeRepeating("SpawnWave", 3, 50);
+        InvokeRepeating("SpawnWave", 3, 40);
+        InvokeRepeating("SpawnCollectable", 5, 5);
     }
 
     public override void Exit()
@@ -33,7 +35,13 @@ public class GameState : State
 
     private void SpawnCollectable()
     {
-        
+        int index = collectablePos.FindIndex(x => x.collectable == null);
+        if (index != -1)
+        {
+            int random = Random.Range(0, collectables.Count);
+            GameObject obj = Instantiate(collectables[random], collectablePos[index].collectablePoint.position, Quaternion.identity);
+            collectablePos[index].collectable = obj;
+        }
     }
 
     IEnumerator SpawnWaveCoroutine(int waveCount)
@@ -44,4 +52,12 @@ public class GameState : State
             yield return new WaitForSeconds(1);
         }
     }
+}
+
+[System.Serializable]
+public class CollectableStructPos
+{
+    [HideInInspector]
+    public GameObject collectable;
+    public Transform collectablePoint;
 }

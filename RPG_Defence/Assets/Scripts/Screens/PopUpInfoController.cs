@@ -16,6 +16,7 @@ public class PopUpInfoController : ScreenUIController
         base.Init(popUpInfoStruct);
         icon.sprite = popUpInfoStruct.item.icon;
         title.text = popUpInfoStruct.item.itemName;
+        description.text = popUpInfoStruct.item.description;
     }
 }
 

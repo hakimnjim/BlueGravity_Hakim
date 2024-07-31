@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: NewHealthPotion
   m_EditorClassIdentifier: 
   itemName: Health Potion
+  description: "Adding health amount \nEffect Turrets and the Base Tower"
   icon: {fileID: 21300000, guid: e671b8ceac9360641b728d053522473f, type: 3}
-  healthRestoreAmount: 5
+  healthRestoreAmount: 20

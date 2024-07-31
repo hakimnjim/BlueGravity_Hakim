@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    public List<Item> justforNows;
     private GameInput playerInputActions;
     Vector2 moveInput;
 
@@ -44,8 +43,6 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnMouseClick(InputAction.CallbackContext context)
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
-        Debug.Log("Mouse clicked at: " + mousePosition);
-        int index = Random.Range(0, justforNows.Count);
         GlobalEventManager.OnSendRightClickMouse?.Invoke(playerInputActions.Player.MousePosition.ReadValue<Vector2>());
     }
 

@@ -9,7 +9,7 @@ public class ThrowBomb : MonoBehaviour
     [SerializeField] private float throwForce = 10f;
     [SerializeField] private float upwardForce = 5f;
     [SerializeField] private Transform startPosition;
-    [SerializeField] private float rateTime = 0.2f;
+    [SerializeField] private CombatController playerController;
     private float shootTime;
     private void OnEnable()
     {
@@ -18,7 +18,7 @@ public class ThrowBomb : MonoBehaviour
 
     private void OnGetMouseClick(Vector2 vector)
     {
-        if (Time.time > shootTime + rateTime)
+        if (Time.time > shootTime + playerController.fireRate)
         {
             Throw(vector);
             shootTime = Time.time;

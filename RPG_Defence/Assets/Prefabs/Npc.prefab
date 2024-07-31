@@ -5249,7 +5249,7 @@ GameObject:
   - component: {fileID: 1581187660861543737}
   m_Layer: 0
   m_Name: Npc
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5332,6 +5332,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 100
+  combatControllerType: 4
+  fireRate: 0
+  effect: {fileID: 1930126505002769385, guid: 1bb310c10f943004e813219ce90f7fe1, type: 3}
   agent: {fileID: 2191724046496176139}
   anim: {fileID: 711427269476293952}
   damage: 10

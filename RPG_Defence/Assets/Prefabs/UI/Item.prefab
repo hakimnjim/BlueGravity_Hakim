@@ -168,6 +168,7 @@ MonoBehaviour:
   child: {fileID: 6234692403965901743}
   icon: {fileID: 4041415361553291321}
   textCount: {fileID: 1481257333488604546}
+  removeButton: {fileID: 5602734513673748122}
 --- !u!114 &5976046677940506419
 MonoBehaviour:
   m_ObjectHideFlags: 0

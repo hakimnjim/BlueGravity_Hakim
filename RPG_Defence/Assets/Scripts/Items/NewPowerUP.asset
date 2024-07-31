@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: NewPowerUP
   m_EditorClassIdentifier: 
   itemName: Power UP
-  icon: {fileID: 21300000, guid: a959d4b2d40ca11478a12f7f2a4239c0, type: 3}
+  description: 'Update fire Rate
+
+    Effect Turrets and Main Player'
+  icon: {fileID: 21300000, guid: ca408cf5dff5fd14e981232a3cadff7c, type: 3}
+  amount: 0.1
