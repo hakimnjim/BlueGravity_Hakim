@@ -520,7 +520,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: e56a176db666c3944b1a075d17dcb75f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3012,7 +3012,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 55286342669026546, guid: dd9ce5776141cfa48ad67a9ee097d0f2, type: 3}
       propertyPath: m_Name
-      value: Mon_00
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 804467429954858334, guid: dd9ce5776141cfa48ad67a9ee097d0f2, type: 3}
       propertyPath: m_LocalPosition.x
