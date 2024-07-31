@@ -32,4 +32,9 @@ public class GlobalEventManager : MonoBehaviour
     public delegate void SendMousePosition(Vector2 vector2);
     public static SendMousePosition OnSendMousePosition;
 
+    public delegate void SendMoveInput(Vector3 vector);
+    public static SendMoveInput OnSendMoveInput;
+
+    public delegate void SendRightClickMouse(Vector2 vector);
+    public static SendRightClickMouse OnSendRightClickMouse;
 }
