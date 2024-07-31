@@ -39,11 +39,11 @@ public class Bomb : MonoBehaviour
             NavMeshAgent agent = nearbyObject.GetComponent<NavMeshAgent>();
             if (agent != null)
             {
-                /*Health health = agent.GetComponent<Health>();
-                if (health != null)
+                CombatController controller = agent.GetComponent<CombatController>();
+                if (controller != null)
                 {
-                    health.TakeDamage(damage);
-                }*/
+                    controller.ExecuteDamage(damage);
+                }
             }
         }
 

@@ -9,7 +9,8 @@ public class ThrowBomb : MonoBehaviour
     [SerializeField] private float throwForce = 10f;
     [SerializeField] private float upwardForce = 5f;
     [SerializeField] private Transform startPosition;
-
+    [SerializeField] private float rateTime = 0.2f;
+    private float shootTime;
     private void OnEnable()
     {
         GlobalEventManager.OnSendRightClickMouse += OnGetMouseClick;
@@ -17,7 +18,12 @@ public class ThrowBomb : MonoBehaviour
 
     private void OnGetMouseClick(Vector2 vector)
     {
-        Throw(vector);
+        if (Time.time > shootTime + rateTime)
+        {
+            Throw(vector);
+            shootTime = Time.time;
+        }
+        
     }
 
     private void Throw(Vector2 mousePosition)
