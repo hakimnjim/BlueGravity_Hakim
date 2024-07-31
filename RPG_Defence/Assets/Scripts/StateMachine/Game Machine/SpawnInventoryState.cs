@@ -16,7 +16,7 @@ public class SpawnInventoryState : State
     private void SpawnInventory()
     {
         inventoryScreen = (InventoryScreenController)GlobalEventManager.TriggerOnSpawnEvent(ScreenType.Inventory);
-        inventoryScreen.Init(new InventoryStruct { slotCount = 4 });
+        inventoryScreen.Init(new InventoryStruct { slotCount = GameData.Instance.inventoryCount });
     }
 
     public override void Exit()

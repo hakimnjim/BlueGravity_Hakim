@@ -19,6 +19,15 @@ public class InventoryScreenController : ScreenUIController
         SpawnItems();
         GlobalEventManager.OnPickupItem += HandleOnPickupItem;
         GlobalEventManager.OnSendMousePosition += HandleGetMousePos;
+        if (GameData.Instance.isLoadingGame)
+        {
+            LoadInventory();
+        }
+        else
+        {
+            CleanInventory();
+        }
+
     }
 
     private void HandleGetMousePos(Vector2 vector2)
@@ -69,6 +78,7 @@ public class InventoryScreenController : ScreenUIController
                 });
             }
         }
+        SaveInventory();
     }
 
     private void OnRemoveItem(ItemSlotController ItemSlot)
@@ -79,6 +89,7 @@ public class InventoryScreenController : ScreenUIController
             OnPointerEnterSlot = OnPointerEnter,
             OnPointerExitSlot = OnPointerExit
         });
+        SaveInventory();
     }
 
     private void OnSelectSlot(ItemSlotController itemSeleted)
@@ -132,6 +143,7 @@ public class InventoryScreenController : ScreenUIController
             }
         }
         GlobalEventManager.TriggerDestroyScreenController(ScreenType.InfoPanel);
+        SaveInventory();
     }
 
     private void OnDropSlot(ItemSlotController currentItem)
@@ -152,6 +164,54 @@ public class InventoryScreenController : ScreenUIController
     public void OnPointerExit(ItemSlotController item)
     {
         itemHover = null;
+    }
+
+    private void SaveInventory()
+    {
+        SaveSystem.SaveInventory(slotControllers);
+    }
+
+    private void CleanInventory()
+    {
+        foreach (var slot in slotControllers)
+        {
+            OnRemoveItem(slot);
+        }
+        SaveInventory();
+    }
+
+    private void LoadInventory()
+    {
+        InventoryData data = SaveSystem.LoadInventory();
+        if (data != null)
+        {
+            for (int i = 0; i < slotControllers.Count; i++)
+            {
+                if (i < data.itemSlotDatas.Count)
+                {
+                    Item item = GetItemById(data.itemSlotDatas[i].itemID);
+                    slotControllers[i].UpdateSlotItem(new ItemSlotStruct
+                    {
+                        item = item,
+                        itemCount = data.itemSlotDatas[i].itemCount,
+                        OnSelectSlot = OnSelectSlot,
+                        OnDeselectSlot = OnDeSelectSlot,
+                        OnBeginDragSlot = OnBeginDragSlot,
+                        OnDraggingSlot = OnDraggingSlot,
+                        OnEndDragSlot = OnEndDragSlot,
+                        OnDropSlot = OnDropSlot,
+                        OnPointerEnterSlot = OnPointerEnter,
+                        OnPointerExitSlot = OnPointerExit,
+                        OnRemoveItem = OnRemoveItem
+                    });
+                }
+            }
+        }
+    }
+
+    private Item GetItemById(int id)
+    {
+        return GameData.Instance.GetItemById(id);
     }
 
     private void OnDisable()

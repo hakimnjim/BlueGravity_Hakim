@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6674c55dc9b10084c973b0c7495c3ade, type: 3}
   m_Name: NewPowerUP
   m_EditorClassIdentifier: 
+  itemID: 2
   itemName: Power UP
   description: 'Update fire Rate
 

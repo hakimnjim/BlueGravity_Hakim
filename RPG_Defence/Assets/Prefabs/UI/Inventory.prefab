@@ -485,6 +485,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 312469668260685254}
   slotController: {fileID: 5798553119535818140, guid: a7156a3a237930840a3748d25d361d9f, type: 3}
+  items:
+  - {fileID: 11400000, guid: def070d8d5973ee42ad42cbbe7fdeace, type: 2}
+  - {fileID: 11400000, guid: 5c8b07425c0f39045bcba908bbdca8a3, type: 2}
+  - {fileID: 11400000, guid: dbb9a3f7ccfa72f4fafab29d1067ad88, type: 2}
 --- !u!1 &8551197182693944936
 GameObject:
   m_ObjectHideFlags: 0

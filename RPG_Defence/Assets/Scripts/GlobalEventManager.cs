@@ -37,4 +37,10 @@ public class GlobalEventManager : MonoBehaviour
 
     public delegate void SendRightClickMouse(Vector2 vector);
     public static SendRightClickMouse OnSendRightClickMouse;
+
+    public delegate void GameOver();
+    public static GameOver OnGameOver;
+
+    public delegate void GamePause();
+    public static GameOver OnGamePause;
 }

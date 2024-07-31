@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : ScriptableObject
 {
+    public int itemID;
     public string itemName;
     [TextArea(0, 5)]
     public string description;

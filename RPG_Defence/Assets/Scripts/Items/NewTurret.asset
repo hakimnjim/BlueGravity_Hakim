@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e52eaeb7cdc6df46a716ff1dabd05ab, type: 3}
   m_Name: NewTurret
   m_EditorClassIdentifier: 
+  itemID: 3
   itemName: Build Turret
   description: 'Build a new turret on platform
 

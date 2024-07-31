@@ -11,5 +11,9 @@ public class TowerController : CombatController
     public override void ExecuteDamage(float amount)
     {
         base.ExecuteDamage(amount);
+        if (health <= 0)
+        {
+            GlobalEventManager.OnGameOver?.Invoke();
+        }
     }
 }

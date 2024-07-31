@@ -28,4 +28,14 @@ public class ScreenUIController : MonoBehaviour
     {
 
     }
+
+    public virtual void Init(GameOverStruct gameOverStruct)
+    {
+
+    }
+
+    public virtual void Init(PauseGameStruct pauseGameStruct)
+    {
+
+    }
 }

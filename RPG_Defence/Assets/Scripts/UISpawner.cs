@@ -7,7 +7,7 @@ public class UISpawner : MonoBehaviour
     [SerializeField] private Transform _parentTransform;
     [SerializeField] private List<ScreenView> screens;
 
-    [SerializeField] private List<ScreenView> _currentScreentControllers = new List<ScreenView>();
+    private List<ScreenView> _currentScreentControllers = new List<ScreenView>();
 
     private void OnEnable()
     {
@@ -55,10 +55,14 @@ public class UISpawner : MonoBehaviour
         }
     }
 
-    
+    public void PauseAction()
+    {
+        Time.timeScale = 0;
+        GlobalEventManager.OnGamePause?.Invoke();
+    }
 }
 
-public enum ScreenType { None, Inventory, SwitchItem, InfoPanel}
+public enum ScreenType { None, Inventory, SwitchItem, InfoPanel, GameOver, PauseGame}
 
 [System.Serializable]
 public struct ScreenView

@@ -13,7 +13,6 @@ public abstract class GlobalStateMachine : MonoBehaviour
 
     private void OnEnable()
     {
-        Application.targetFrameRate = 60;
         Initialise();
     }
 
