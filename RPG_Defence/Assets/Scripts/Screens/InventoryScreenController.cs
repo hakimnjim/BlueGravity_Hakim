@@ -19,6 +19,7 @@ public class InventoryScreenController : ScreenUIController
         SpawnItems();
         GlobalEventManager.OnPickupItem += HandleOnPickupItem;
         GlobalEventManager.OnSendMousePosition += HandleGetMousePos;
+        GlobalEventManager.OnGameOver += HandleGameOver;
         if (GameData.Instance.isLoadingGame)
         {
             LoadInventory();
@@ -28,6 +29,11 @@ public class InventoryScreenController : ScreenUIController
             CleanInventory();
         }
 
+    }
+
+    private void HandleGameOver()
+    {
+        CleanInventory();
     }
 
     private void HandleGetMousePos(Vector2 vector2)
@@ -218,6 +224,7 @@ public class InventoryScreenController : ScreenUIController
     {
         GlobalEventManager.OnPickupItem -= HandleOnPickupItem;
         GlobalEventManager.OnSendMousePosition -= HandleGetMousePos;
+        GlobalEventManager.OnGameOver -= HandleGameOver;
     }
 }
 
